@@ -5,6 +5,7 @@
  cd build
  cmake ..
  make
+ 
 2. run, stay at build
  ./src/assembler source_file
  
