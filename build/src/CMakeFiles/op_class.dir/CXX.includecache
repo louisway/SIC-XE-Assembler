@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+.././inc/op.h
+string
+-
+vector
+-
+unordered_map
+-
+
+/Users/mengyinliu/Documents/sjsu/220/SIC-XE-Assembler/src/op.cpp
+op.h
+/Users/mengyinliu/Documents/sjsu/220/SIC-XE-Assembler/src/op.h
+

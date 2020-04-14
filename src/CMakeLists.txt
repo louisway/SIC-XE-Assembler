@@ -1,0 +1,5 @@
+#for each .c file, add one line like: add_executable(name, file_name_with_suffix)
+#add_library(assembler_class assember.cpp)
+add_library(op_class OBJECT op.cpp)
+add_library(assembler_class OBJECT $<TARGET_OBJECTS:op_class> assembler.cpp)
+add_executable(assembler $<TARGET_OBJECTS:assembler_class> $<TARGET_OBJECTS:op_class>   assembler_impl.cpp)
