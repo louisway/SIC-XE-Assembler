@@ -1,7 +1,0 @@
-/Users/mengyinliu/Documents/sjsu/220/SIC-XE-Assembler/build/CMakeFiles/rebuild_cache.dir
-/Users/mengyinliu/Documents/sjsu/220/SIC-XE-Assembler/build/CMakeFiles/edit_cache.dir
-/Users/mengyinliu/Documents/sjsu/220/SIC-XE-Assembler/build/src/CMakeFiles/assembler.dir
-/Users/mengyinliu/Documents/sjsu/220/SIC-XE-Assembler/build/src/CMakeFiles/assembler_class.dir
-/Users/mengyinliu/Documents/sjsu/220/SIC-XE-Assembler/build/src/CMakeFiles/rebuild_cache.dir
-/Users/mengyinliu/Documents/sjsu/220/SIC-XE-Assembler/build/src/CMakeFiles/edit_cache.dir
-/Users/mengyinliu/Documents/sjsu/220/SIC-XE-Assembler/build/src/CMakeFiles/op_class.dir
