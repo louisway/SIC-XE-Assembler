@@ -10,12 +10,17 @@ std::unordered_map<std::string, int> assembler::optable = {
            {"WORD",  -1},
            {"ADD", 24},
            {"LDA", 0},
-           {"AND", 40},                      
+           {"AND", 64},   
+           {"JSUB",72},
+           {"RSUB",76},                   
 };
 
 assembler::assembler():parts(),symtable(),verb_pos(),address(),comments(){
   op_stack["LDA"] = new LDA();
   op_stack["RESERVE"] =  new RESERVE();
+  op_stack["ADD"] =  new ADD();
+  op_stack["JSUB"] =  new JSUB();
+  op_stack["RSUB"] =  new RSUB();
 }
 
 assembler::~assembler(){
@@ -74,8 +79,9 @@ void assembler::interprete_line(std::string line){
   std::vector<std::string> sub_parts;
   std::string verb;
   int p = -1;
-  while(pos < line.length()){
-     if(line[pos] != ' ' && line[pos] != '\t'){
+  while(pos <= line.length()){
+      
+     if(pos < line.length() && line[pos] != ' ' && line[pos] != '\t'){
        ++length; 
      }else{
        if(length > 0){
@@ -93,10 +99,9 @@ void assembler::interprete_line(std::string line){
   if(sub_parts.size() == 0 || sub_parts[0] == "."){
     p = -1; 
   }
-  if(length > 0){
+  /*if(length > 0){
     sub_parts.push_back(line.substr(prev_pos,length));
-  }  
-  
+  }*/ 
   //check address
   if(p == -1 || sub_parts[0] == "."){
     address.push_back(-1);

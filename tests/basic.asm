@@ -3,11 +3,15 @@ TEST	START	1000
 
 . first	CLEAR	A	
 first   LDA	=10
-. increase  ADD	1
+	ADD	=100
+.	LDF	=50.20
+	JSUB	load
 .	TD	stdout
 .	WD	stdout
 .	J	increase	
 
+load 	LDA	=20
+	RSUB
 . constants
 . stdout	BYTE	X'01'
 	END	first

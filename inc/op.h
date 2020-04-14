@@ -12,7 +12,10 @@
 class basic_op{
  public:
   bool check_operand(std::string operand);
-
+  void process(std::vector<std::string> &parameter,
+                          int pos,
+                          std::vector<int> &size,
+                          std::vector<std::string>& value);
   virtual std::string generate_opcode(std::unordered_map<std::string, int> &symtable,
                                        int cur_address, std::string parameter){ return ""; };
 
@@ -24,6 +27,43 @@ class basic_op{
   virtual ~basic_op() =default;
 };
 
+/*
+*JSUB
+*
+*/
+class JSUB:public basic_op{
+  const static int opcode = 72;
+public:
+  JSUB():basic_op(){}
+  ~JSUB() = default;  
+  void preprocess(std::vector<std::string> &parameter,
+                  int pos,
+                  std::vector<int> &size,
+                  std::vector<std::string>& value,
+                  int &LOCCTR);
+  std::string generate_opcode(std::unordered_map<std::string,int> &symtable,
+                              int cur_address,std::string parameter);
+  friend std::string generate_hex(int value, int length);
+};
+
+/*
+*RSUB
+*
+*/
+class RSUB:public basic_op{
+  const static int opcode = 76;
+public:
+  RSUB():basic_op(){}
+  ~RSUB() = default;
+  void preprocess(std::vector<std::string> &parameter,
+                  int pos,
+                  std::vector<int> &size,
+                  std::vector<std::string>& value,
+                  int &LOCCTR);
+  std::string generate_opcode(std::unordered_map<std::string,int> &symtable,
+                              int cur_address,std::string parameter);
+  friend std::string generate_hex(int value, int length);
+};
 /*
 * LDA 
 *

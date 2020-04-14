@@ -14,15 +14,10 @@ bool basic_op::check_operand(std::string operand){
   return true;
 }
 
-/*
-* LDA 
-*/
-void LDA::preprocess(std::vector<std::string> &parameter,
-                     int pos,
-                     std::vector<int> &size,
-                     std::vector<std::string> &value,
-                     int &LOCCTR){
-  LOCCTR += 3; 
+void basic_op::process(std::vector<std::string> &parameter,
+                       int pos,
+                       std::vector<int> &size,
+                       std::vector<std::string> &value){
   if(parameter[pos+1][0] == '=' || parameter[pos+1][0] == '#'){
     if(check_operand(parameter[pos+1].substr(1,parameter[pos+1].length()-1))){
       size.push_back(3);
@@ -34,6 +29,61 @@ void LDA::preprocess(std::vector<std::string> &parameter,
   }else if(parameter[pos+1][0] == '@'){
       parameter[pos+1] = parameter[pos+1].substr(1,parameter[pos+1].length()-1);
   }
+
+}
+
+/*
+*JSUB
+*
+*/
+void JSUB::preprocess(std::vector<std::string> &parameter,
+                     int pos,
+                     std::vector<int> &size,
+                     std::vector<std::string> &value,
+                     int &LOCCTR){
+  LOCCTR += 3;
+}
+
+std::string JSUB::generate_opcode(std::unordered_map<std::string,int> &symtable,
+                                 int cur_address,std::string parameter){
+  std::string code;
+  code += generate_hex(opcode+3,2);
+  code += "2";
+  code += generate_hex(symtable[parameter] - cur_address - 3,3);
+  return code;
+}
+
+/*
+*RSUB
+*
+*/
+void RSUB::preprocess(std::vector<std::string> &parameter,
+                     int pos,
+                     std::vector<int> &size,
+                     std::vector<std::string> &value,
+                     int &LOCCTR){
+  LOCCTR += 3;
+}
+
+std::string RSUB::generate_opcode(std::unordered_map<std::string,int> &symtable,
+                                 int cur_address,std::string parameter){
+  std::string code;
+  code += generate_hex(opcode+3,2);
+  code += generate_hex(0,4);
+  return code;
+}
+
+
+/*
+* LDA 
+*/
+void LDA::preprocess(std::vector<std::string> &parameter,
+                     int pos,
+                     std::vector<int> &size,
+                     std::vector<std::string> &value,
+                     int &LOCCTR){
+  LOCCTR += 3; 
+  process(parameter,pos,size,value);
 }
 
 std::string LDA::generate_opcode(std::unordered_map<std::string,int> &symtable,
@@ -61,7 +111,27 @@ std::string RESERVE::generate_opcode(std::unordered_map<std::string,int> &symtab
   return generate_hex(std::stoi(parameter),6);
 };
 
+/*
+* ADD
+*
+*/
+void ADD::preprocess(std::vector<std::string> &parameter,
+                     int pos,
+                     std::vector<int> &size,
+                     std::vector<std::string> &value,
+                     int &LOCCTR){
+  LOCCTR += 3;
+  process(parameter,pos,size,value);
+}
 
+std::string ADD::generate_opcode(std::unordered_map<std::string,int> &symtable,
+                                 int cur_address,std::string parameter){
+  std::string code;
+  code += generate_hex(opcode+3,2);
+  code += "2";
+  code += generate_hex(symtable[parameter] - cur_address - 3,3);
+  return code;
+}
 /*
 *auxiliary function generate_hex
 *
