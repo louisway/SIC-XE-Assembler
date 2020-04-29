@@ -208,7 +208,8 @@ void assembler::two_pass_process(){
       if(parts[pos][verb_pos[pos]] == "END"){
         break;
       }
-      std::string code = op_stack[parts[pos][verb_pos[pos]]]->generate_opcode(symtable,address[pos],parts[pos][verb_pos[pos]+1]);
+      std::string para = verb_pos[pos]+1 < parts[pos].size()?parts[pos][verb_pos[pos]+1]:"";
+      std::string code = op_stack[parts[pos][verb_pos[pos]]]->generate_opcode(symtable,address[pos],para);
       if(text.size() + code.size() > 69){
         std::cout << text << std::endl;
         std::string ssize = generate_hex(int((text.length()-9)/2),2);
